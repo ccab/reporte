@@ -1,0 +1,9 @@
+parameters:
+  reporte_paginator.class: Reporte\PaginatorBundle\Paginator\Paginator
+  pages_show: 5
+  items_per_page: 10
+
+services:
+  reporte_paginator:
+    class: %reporte_paginator.class%
+    arguments: [%pages_show%, %items_per_page%, "@doctrine.orm.entity_manager"]

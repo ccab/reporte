@@ -1,0 +1,53 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/hor-zebra.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block title %}Orden de Trabajo{% endblock %}
+
+{% block breadcrumb %}
+    <a href="///var/www/reportes/web">Home</a> &raquo;
+    <span>Orden de Trabajo</span>
+{% endblock %}
+
+{% block page_title %}
+    <h1 class="title_01">Orden de Trabajo</h1><br>
+{% endblock %}
+    
+{% block content %}
+  
+    <a href={{ path('servicio_new') }}>Adicionar OT</a>
+    
+    {% if entities != false %}
+    <table id="hor-zebra">
+        <thead>
+            <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Area</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Problema</th>
+                <th scope="col">Operaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for entity in entities %}   
+       <tr class="{{ cycle(['odd', 'even'], loop.index)}}">
+            <td>{% if entity.fechareporte %}{{ entity.fechareporte|date('d/m/Y') }}{% endif %}</td>
+            <td>{{ entity.autor.area.nombre }}</td>
+            <td>{{ entity.usuario }}</td>
+            <td>{{ entity.problema }}</td>
+            <td colspan="4">
+                <a href={{ path('servicio_show', { 'id': entity.id }) }}>Ver</a>
+                <a href={{ path('servicio_solve', { 'id': entity.id }) }}>Solucionar</a>
+                <!-- <a href={#{ path('servicio_edit', { 'id': entity.id }) }#}>Modificar</a> -->
+                <a href={{ path('servicio_print', { 'id' : entity.id}) }} target="_blank">Imprimir</a>
+                <a href={{ path('servicio_askdelete', { 'id': entity.id }) }}>Eliminar</a></td>
+       </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+{% endblock %}

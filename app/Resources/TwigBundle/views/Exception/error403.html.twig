@@ -1,0 +1,30 @@
+{% extends '::main_layout.html.twig' %}
+
+{% block title %}
+    Acceso Denegado
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li><a href="{{ path('reporte_custom_default_index') }}">Inicio</a></li>
+    </ol>
+{% endblock %}
+
+{% block page_title %}
+    <div class="page-header">
+        <h3>Acceso Denegado</h3>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="alert alert-danger" role="alert">
+          <p class="lead"><span class="glyphicon glyphicon-ban-circle"></span> Usted no tiene privilegio 
+              suficiente para acceder a esta p&aacute;gina. Comun&iacute;quese con el administrador del Sistema si 
+              considera que esto es incorrecto.
+          </p>
+    </div>
+    
+    <a href="{{ path('reporte_custom_default_index') }}" class="btn btn-primary" role="button">
+        <span class="glyphicon glyphicon-home"></span> Inicio
+    </a>
+{% endblock %}  

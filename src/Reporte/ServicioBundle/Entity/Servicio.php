@@ -1,0 +1,396 @@
+<?php
+
+namespace Reporte\ServicioBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Servicio
+ *
+ * @ORM\Table(name="servicios")
+ * @ORM\Entity(repositoryClass="Reporte\ServicioBundle\Entity\ServicioRepository")
+ */
+class Servicio
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="Reporte\PCBundle\Entity\PC", inversedBy="servicios")
+    * @ORM\JoinColumn(name="pc_id", referencedColumnName="id")
+    * 
+    */
+    protected $pc;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="Reporte\UsersBundle\Entity\User", inversedBy="servicios")
+    * @ORM\JoinColumn(name="autor_id", referencedColumnName="id")
+    * 
+    */
+    protected $autor;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="Reporte\UserBundle\Entity\User", inversedBy="servicios_solucionados")
+    * @ORM\JoinColumn(name="tecnico_id", referencedColumnName="id")
+    * 
+    */
+    protected $tecnico;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="usuario", type="string", length=50)
+     */
+    private $usuario;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="problema", type="text")
+     */
+    private $problema;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="labor_realizada", type="text", nullable=true)
+     */
+    private $labor_realizada;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="piezas", type="text", nullable=true)
+     */
+    private $piezas;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="piezas_recuperadas", type="boolean", nullable=true)
+     */
+    private $piezas_recuperadas;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_reporte", type="datetime", nullable=true)
+     */
+    private $fecha_reporte;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_solucion", type="date", nullable=true)
+     */
+    private $fecha_solucion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="observacion", type="text", nullable=true)
+     */
+    private $observacion;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="new", type="boolean", nullable=true)
+     */
+    private $new;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param string $usuario
+     * @return Servicio
+     */
+    public function setUsuario($usuario)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return string 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    /**
+     * Set problema
+     *
+     * @param string $problema
+     * @return Servicio
+     */
+    public function setProblema($problema)
+    {
+        $this->problema = $problema;
+
+        return $this;
+    }
+
+    /**
+     * Get problema
+     *
+     * @return string 
+     */
+    public function getProblema()
+    {
+        return $this->problema;
+    }
+
+    /**
+     * Set labor_realizada
+     *
+     * @param string $laborRealizada
+     * @return Servicio
+     */
+    public function setLaborRealizada($laborRealizada)
+    {
+        $this->labor_realizada = $laborRealizada;
+
+        return $this;
+    }
+
+    /**
+     * Get labor_realizada
+     *
+     * @return string 
+     */
+    public function getLaborRealizada()
+    {
+        return $this->labor_realizada;
+    }
+
+    /**
+     * Set piezas
+     *
+     * @param string $piezas
+     * @return Servicio
+     */
+    public function setPiezas($piezas)
+    {
+        $this->piezas = $piezas;
+
+        return $this;
+    }
+
+    /**
+     * Get piezas
+     *
+     * @return string 
+     */
+    public function getPiezas()
+    {
+        return $this->piezas;
+    }
+
+
+    /**
+     * Set fecha_reporte
+     *
+     * @param \DateTime $fechaReporte
+     * @return Servicio
+     */
+    public function setFechaReporte($fechaReporte)
+    {
+        $this->fecha_reporte = $fechaReporte;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha_reporte
+     *
+     * @return \DateTime 
+     */
+    public function getFechaReporte()
+    {
+        return $this->fecha_reporte;
+    }
+
+    /**
+     * Set fecha_solucion
+     *
+     * @param \DateTime $fechaSolucion
+     * @return Servicio
+     */
+    public function setFechaSolucion($fechaSolucion)
+    {
+        $this->fecha_solucion = $fechaSolucion;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha_solucion
+     *
+     * @return \DateTime 
+     */
+    public function getFechaSolucion()
+    {
+        return $this->fecha_solucion;
+    }
+
+    /**
+     * Set observacion
+     *
+     * @param string $observacion
+     * @return Servicio
+     */
+    public function setObservacion($observacion)
+    {
+        $this->observacion = $observacion;
+
+        return $this;
+    }
+
+    /**
+     * Get observacion
+     *
+     * @return string 
+     */
+    public function getObservacion()
+    {
+        return $this->observacion;
+    }
+
+    /**
+     * Set piezas_recuperadas
+     *
+     * @param boolean $piezasRecuperadas
+     * @return Servicio
+     */
+    public function setPiezasRecuperadas($piezasRecuperadas)
+    {
+        $this->piezas_recuperadas = $piezasRecuperadas;
+
+        return $this;
+    }
+
+    /**
+     * Get piezas_recuperadas
+     *
+     * @return boolean 
+     */
+    public function getPiezasRecuperadas()
+    {
+        return $this->piezas_recuperadas;
+    }
+
+
+    /**
+     * Set pc
+     *
+     * @param \Reporte\PCBundle\Entity\PC $pc
+     * @return Servicio
+     */
+    public function setPc(\Reporte\PCBundle\Entity\PC $pc = null)
+    {
+        $this->pc = $pc;
+
+        return $this;
+    }
+
+    /**
+     * Get pc
+     *
+     * @return \Reporte\PCBundle\Entity\PC 
+     */
+    public function getPc()
+    {
+        return $this->pc;
+    }
+
+
+    /**
+     * Set tecnico
+     *
+     * @param \Reporte\UserBundle\Entity\User $tecnico
+     * @return Servicio
+     */
+    public function setTecnico(\Reporte\UserBundle\Entity\User $tecnico = null)
+    {
+        $this->tecnico = $tecnico;
+
+        return $this;
+    }
+
+    /**
+     * Get tecnico
+     *
+     * @return \Reporte\UserBundle\Entity\User 
+     */
+    public function getTecnico()
+    {
+        return $this->tecnico;
+    }
+
+    /**
+     * Set new
+     *
+     * @param boolean $new
+     * @return Servicio
+     */
+    public function setNew($new)
+    {
+        $this->new = $new;
+
+        return $this;
+    }
+
+    /**
+     * Get new
+     *
+     * @return boolean 
+     */
+    public function getNew()
+    {
+        return $this->new;
+    }
+
+    /**
+     * Set autor
+     *
+     * @param \Reporte\UsersBundle\Entity\User $autor
+     * @return Servicio
+     */
+    public function setAutor(\Reporte\UsersBundle\Entity\User $autor = null)
+    {
+        $this->autor = $autor;
+
+        return $this;
+    }
+
+    /**
+     * Get autor
+     *
+     * @return \Reporte\UsersBundle\Entity\User 
+     */
+    public function getAutor()
+    {
+        return $this->autor;
+    }
+}

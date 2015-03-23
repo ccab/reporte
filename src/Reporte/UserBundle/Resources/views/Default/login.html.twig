@@ -1,0 +1,38 @@
+<div class="panel panel-primary" >
+    <div class="panel-heading">
+        <div class="panel-title">Iniciar Sesion</div>
+    </div>     
+    <div style="padding-top:30px" class="panel-body" >
+        
+        {# We have to manage the messages via translation #}
+        {% if error %}
+            {% if error.message == 'Invalid username or password' %}
+                <div class="alert alert-danger col-sm-12">
+                    <div>Usuario o clave incorrecto</div>
+                </div>
+            {% else %}
+                <div class="alert alert-danger col-sm-12">
+                    <div>{{ error.message }}</div>
+                </div>
+            {% endif %}
+        {% endif %}
+        
+        <form action="{{ path('login_check') }}" method="post" class="form-horizontal" role="form">
+            <div style="margin-bottom: 25px" class="input-group {% if error and error.message=='Invalid username or password' %}has-error{% endif %}">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <input id="username" type="text" class="form-control" name="_username" value="{{ last_username }}" placeholder="Usuario">                                        
+            </div>
+            <div style="margin-bottom: 25px" class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                <input type="password" class="form-control" id="password" name="_password" placeholder="Clave">
+            </div>
+            <div style="margin-top:10px" class="form-group">
+                <div class="col-sm-12 controls">
+                  <button type="submit" id="btn-login" class="btn btn-primary">Aceptar</button>
+                </div>
+            </div>
+            <!-- <input type="hidden" name="_target_path" value="/user" /> -->
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        </form>
+    </div>  
+</div>

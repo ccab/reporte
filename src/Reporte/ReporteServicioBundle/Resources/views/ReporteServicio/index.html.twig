@@ -1,0 +1,74 @@
+{% if form is defined %}{% form_theme form '::search_form.html.twig' %}{% endif %}
+
+{% extends '::main_layout.html.twig' %}
+   
+{% block body %}
+    <a href="{{ path('reporte_servicio_servicio_add') }}" class="btn btn-info" role="button">
+        <span class="glyphicon glyphicon-file"></span> Adicionar OT</a><br><br>
+    
+    {% if form is defined %}{{form(form)}}{% endif %}
+
+    <br><br>
+    {% if entities is defined %}
+        <div class="table-responsive">
+  <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Accion</th>
+                    {% elseif is_granted('ROLE_TEC') %}
+                        <th>Accion</th>
+                    {% endif %}
+                    <th>Area</th>
+                    <th>Fecha Reporte</th>
+                    <th>Fecha Solucion</th>
+                    <th>Inv</th>
+                    <th>Problema</th>
+                    <th>Labor Realizada</th>
+                    <th>Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for entity in entities %}   
+           <tr class="{{ cycle(['odd', 'even'], loop.index)}}">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td>
+                        <!-- Operation Button -->
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href={{ path('reporte_reporteservicio_reporteservicio_show', { 'id': entity.id }) }}>
+                                    <span class="glyphicon glyphicon-eye-open"></span> Ver</a>
+                            </li>
+                            <li>
+                                <a href={{ path('reporte_reporteservicio_reporteservicio_update', { 'id': entity.id }) }}>
+                                    <span class="glyphicon glyphicon-pencil"></span> Modificar</a>
+                            </li>
+                          </ul>
+                        </div> 
+                    </td>
+                {% endif %}
+                <td>{{ entity.getPcAreaNombre }}</td> 
+                <td>{% if entity.fechareporte %}{{ entity.fechareporte|date('d/m/Y') }}{% endif %}</td>
+                <td>{% if entity.fechasolucion %}{{ entity.fechasolucion|date('d/m/Y') }}{% endif %}</td>
+                <td>{{ entity.getPcInv }}</td>
+                <td>{{ entity.problema|truncate(30)|raw }}</td>
+                <td>{{ entity.getLaborrealizada|truncate(30)|raw }}</td>
+                <td>{{ entity.usuario }}</td>
+           </tr>
+        {% endfor %}
+            </tbody>
+          </table>
+</div>
+    {% endif %}
+{% endblock %}
+        
+{% block paginator %}
+    {% if paginator is defined %}
+        {{ include('ReportePaginatorBundle:Default:paginator.html.twig', {'paginator': paginator}) }}
+    {% endif %}
+{% endblock %}
+

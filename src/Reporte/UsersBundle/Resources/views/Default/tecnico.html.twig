@@ -1,0 +1,32 @@
+{% extends '::main_layout.html.twig' %}
+   
+{% block body %}
+    {% if entities is defined %}
+        <div class="table-responsive">
+  <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Area</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for entity in entities %}   
+           <tr class="{{ cycle(['odd', 'even'], loop.index)}}">
+                <td>{{ entity.fullName }}</td>
+                <td>{{ entity.getArea().getNombre() }}</td>
+                <td>{{ entity.getEmail() }}</td>
+           </tr>
+        {% endfor %}
+            </tbody>
+          </table>
+</div>
+    {% endif %}
+{% endblock %}
+        
+{% block paginator %}
+    {% if paginator is defined %}
+        {{ include('ReportePaginatorBundle:Default:bs_paginator.html.twig', {'paginator': paginator}) }}
+    {% endif %}
+{% endblock %}

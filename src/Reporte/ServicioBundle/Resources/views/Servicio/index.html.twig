@@ -1,0 +1,100 @@
+{% if form is defined %}{% form_theme form '::search_form.html.twig' %}{% endif %}
+
+{% extends '::main_layout.html.twig' %}
+   
+{% block body %}
+    <a href="{{ path('reporte_servicio_servicio_add') }}" class="btn btn-info" role="button">
+        <span class="glyphicon glyphicon-file"></span> Adicionar OT</a><br><br>
+        
+    {% if form is defined %}{{form(form)}}{% endif %}
+    
+        <br><br>
+    {% if entities is defined %}
+        <div class="table-responsive">
+  <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Accion</th>
+                    {% elseif is_granted('ROLE_TEC') %}
+                        <th>Accion</th>
+                    {% endif %}
+                    <th>Fecha</th>
+                    <th>Area</th>
+                    <th>Usuario</th>
+                    <th>Problema</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for entity in entities %}   
+           <tr class="{{ cycle(['odd', 'even'], loop.index)}}">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td>
+                        <!-- Operation Button -->
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href={{ path('reporte_servicio_servicio_show', { 'id': entity.id }) }}>
+                                    <span class="glyphicon glyphicon-eye-open"></span> Ver</a>
+                            </li>
+                            <li>
+                                <a href={{ path('reporte_servicio_servicio_solve', { 'id': entity.id }) }}>
+                                    <span class="glyphicon glyphicon-ok"></span> Solucionar</a>
+                            </li>
+                            <li>
+                                <a href={{ path('reporte_servicio_servicio_update', { 'id': entity.id }) }}>
+                                    <span class="glyphicon glyphicon-pencil"></span> Modificar</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href={{ path('reporte_servicio_servicio_print', { 'id' : entity.id}) }} target="_blank">
+                                    <span class="glyphicon glyphicon-print"></span> Imprimir</a>
+                            </li>
+                            <li>
+                                <a href={{ path('reporte_servicio_servicio_askdelete', { 'id': entity.id }) }}>
+                                    <span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+                            </li>
+                          </ul>
+                        </div>
+                    </td>
+                {% elseif is_granted('ROLE_TEC') %}
+                    <td>
+                        <!-- Operation Button -->
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href={{ path('reporte_servicio_servicio_print', { 'id' : entity.id}) }} target="_blank">
+                                    <span class="glyphicon glyphicon-print"></span> Imprimir</a>
+                            </li>
+                          </ul>
+                        </div>
+                    </td>
+                {% endif %}
+                {% if entity.new == true %}
+                   <td>{% if entity.fechareporte %}{{ entity.fechareporte|date('d/m/Y') }}{% endif %} <span class="label label-danger">Nuevo</span></td>
+                {% else %}
+                   <td>{% if entity.fechareporte %}{{ entity.fechareporte|date('d/m/Y') }}{% endif %}</td>
+                {% endif %}
+                <td>{{ entity.autor.area.nombre }}</td>
+                <td>{{ entity.usuario }}</td>
+                <td>{{ entity.problema|truncate(30)|raw }}</td>
+           </tr>
+        {% endfor %}
+            </tbody>
+          </table>
+</div>
+    {% endif %}
+{% endblock %}
+        
+{% block paginator %}
+    {% if paginator is defined %}
+        {{ include('ReportePaginatorBundle:Default:paginator.html.twig', {'paginator': paginator}) }}
+    {% endif %}
+{% endblock %}
+

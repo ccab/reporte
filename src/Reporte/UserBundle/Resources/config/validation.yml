@@ -1,0 +1,15 @@
+Reporte\UserBundle\Entity\User:
+  properties: 
+    email: 
+      - Email: 
+          message: El campo Correo Electronico no es valido
+    roles:
+      - NotBlank: ~
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+          fields: email
+          message: 'El Correo Electronico ha sido asignado a otro usuario'
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+          fields: username
+          message: 'El usuario ha sido asignado a otro usuario'
+    

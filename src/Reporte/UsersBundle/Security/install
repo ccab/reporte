@@ -1,0 +1,22 @@
+Pasos para crear modulo q autentique contra el dominio
+
+1-Instalar FOSUserBundle [ok]
+1.1-Crear la clase User personalizada (User) [working]
+2-Instalar adLDAP 
+3-Crear el servicio para interactuar con la libreria (LDAPService)
+3.1-Configurar los parametros del servicio (ver services.yml)
+4-Crear la clase User para LDAP (LDAPUser)
+5-Adaptar el Proveedor de Usuario (LDAPUserProvider)
+6-Adaptar el Autenticador de Usuario (LDAPAuthenticator)
+
+
+changelog
+-config de nueva clase user para almacenamiento en bd
+-corregido authentication listener para setear lastAccess
+-añadido a la entidad Area un campo nombre_grupo_dc para matchear el area con el grupo de DC
+-añadido a la entidad Role un campo nombre_grupo_dc para matchear el area con el grupo de DC 
+-campo usuario de la entidad servicio propuesto a eliminacion (nullable) no aplica
+-modificando la entidad servicio, poniendo como autor la entidad de UsersBundle 
+ (para q esto funcione correctamente no deben existir servicios u ordenes de trabajo 
+  pq entraria en conflicto con los ids de los viejos y nuevos usuarios)
+-formulario para la gestion de usuarios implementado como servicio

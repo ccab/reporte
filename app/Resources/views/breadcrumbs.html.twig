@@ -1,0 +1,17 @@
+<div id="bc1" class="btn-group btn-breadcrumb breadcrumb">
+    {% for item in bc.attributes.bc %}
+        {% if item.item.isCurrent %}
+            {% if item.label == "Inicio" %}
+                <a href="{{ path('reporte_custom_default_index') }}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-home"> <strong>Inicio</strong></i></a>
+            {% else %}
+                <div class="btn btn-default btn-sm"><strong>{{item.label}}</strong></div>
+            {% endif %}
+        {% else %}
+            {% if item.label == "Inicio" %}
+                <a href="{{ path('reporte_custom_default_index') }}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-home"></i></a>          
+            {% else %}
+                <a href="{{item.uri}}" class="btn btn-default btn-sm"><div>{{item.label}}</div></a>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</div>

@@ -1,0 +1,26 @@
+Reporte\ServicioBundle\Entity\Servicio:
+  properties: 
+    usuario:
+      - Regex:
+          pattern: "/\d/"
+          match: false
+          message: El campo Usuario no puede contener numeros
+    problema: 
+      - NotBlank:
+          message: El campo Problema es obligatorio
+      - Regex:
+          pattern: "/\d/"
+          match: false
+          message: El campo Problema no puede contener numeros
+    labor_realizada: 
+      - NotBlank: 
+          groups: [solve]
+          message: El campo Labor realizada es obligatorio
+    pc: 
+      - NotBlank: 
+          groups: [solve]
+          message: El campo No. Inventario es obligatorio
+    tecnico: 
+      - NotBlank: 
+          groups: [solve]
+          message: El campo Tecnico es obligatorio

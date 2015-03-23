@@ -1,0 +1,14 @@
+#parameters:
+# mensaje.class: Reporte\ServicioBundle\Mensaje\Mensaje
+# 
+#services:
+# mensaje:
+#  class: "%mensaje.class%"
+
+services:
+#Definicion como service del formulario de Servicio
+    reporte.form.type.servicio:
+      class: Reporte\ServicioBundle\Form\ServicioType
+      arguments: ["@security.context", "@request_stack", "@doctrine.orm.entity_manager"]
+      tags:
+           - { name: form.type, alias: servicio_form }

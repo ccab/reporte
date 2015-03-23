@@ -1,0 +1,109 @@
+
+<link href="{{ asset('css/print.css') }}" rel="stylesheet" type="text/css" />
+
+{#{ dump(entity.fechareporte) }#}
+
+<div id="content">
+<div id="muestra">
+<div id="header">
+<b><p style="float:right;margin-right:25px;">RG-06-01 <br> Revisi&oacute;n:0</p></b>
+<a href="{{ path('reporte_custom_default_index') }}"><img src="{{ asset('images/logo.gif') }}" alt="Symfony!" class="png_fix"/></a>
+</div>
+
+<table width="802" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan="6" align="center"><h1>Orden de Trabajo</h1><br /></td>
+  </tr>
+  <tr>
+    <td height="22" colspan="2"><p>Reparaci&oacute;n:___X___</p></td>
+    <td colspan="2">&nbsp;</td>
+    <td width="141">&nbsp;</td>
+    <td width="147">&nbsp;</td>
+  </tr>
+  <tr>
+   
+    <td height="23" colspan="4"><p>Área a la que pretenece: <b>{{ entity.autor.area.nombre }}</b></p></td>
+    <td colspan="2"><p>Usuario: <b>{{ entity.usuario }}</b></p></td>
+    </tr>
+  <tr>
+    <td height="22" colspan="2"><p>Fecha de Comienzo: <b>{{ entity.fechareporte|date('d/m/Y') }}</b></p></td>
+    <td colspan="2">&nbsp;</td>
+    <td colspan="2"><p>Tipo de Equipo: <b>Computadora</b></p></td>
+    </tr>
+  <tr>
+    <td height="22" colspan="2"><p>Fecha de Terminación: ________________________</p></td>
+    <td colspan="2">&nbsp;</td>
+    <td colspan="2"><p>No. Inventario: <b>{% if entity.pc %}{{ entity.pc.inv }}{% endif %}</b></p></td>
+    </tr>
+  <tr>
+    <td width="166">&nbsp;</td>
+    <td width="168">&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="cel" colspan="6" align="center"><p>Defectaci&oacute;n</p></td>
+  </tr>
+  <tr>
+      <td valign="top" height="118" colspan="6" class="cel"><p style="margin-top:5px;">&nbsp;{{ entity.problema|raw }}</p></td>
+  </tr>
+  <tr>
+    <td class="cel" colspan="6" align="center"><p>Trabajos Realizados</p></td>
+  </tr>
+  <tr>
+      <td class="cel" height="118" colspan="6" class="cel"><p style="margin-top:5px;">&nbsp;{{ entity.getLaborRealizada|raw }}</td>
+  </tr>
+  <tr>
+    <td class="cel" colspan="6" align="center"><p>Piezas Utilizadas</p></td>
+  </tr>
+  <tr>
+      <td class="cel" height="118" colspan="6" class="cel"><p style="margin-top:5px;">&nbsp;{{ entity.piezas|raw }}</td>
+  </tr>
+  <tr>
+    <td class="cel" colspan="6" align="center"><p>Observaciones y/o Recomendaciones</p></td>
+  </tr>
+  <tr>
+      <td class="cel" height="118" colspan="6" class="cel"><p style="margin-top:5px;">&nbsp;{{ entity.observacion|raw }}</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2"><p>Realizado Por: ________________________________</p></td>
+    <td width="84">&nbsp;</td>
+    <td colspan="3"><p>Recibe el Servicio:__________________________________</p></td>
+    </tr>
+  <tr>
+    <td height="46" colspan="2"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Firma: ________________________________</p></td>
+    <td>&nbsp;</td>
+    <td colspan="3"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Firma: __________________________________</p></td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td colspan="2" align="center"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</div>
+</div>
+
+    
+

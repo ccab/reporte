@@ -1,0 +1,6 @@
+Modulo encargado de la gestion de los menus:
+Interfaz principal para la creacion de los menus basado en KNPMenuBundle, 
+ademas de la creacion del menu de navegacion permite la creacion de las 
+breadcrumbs. Este bundle tambien determina que elemento del arbol del menu
+es el actual, con esta informacion se setea ademas el nombre de la pagina  
+por lo tanto en las plantillas no es necesario setearlo explicitamente

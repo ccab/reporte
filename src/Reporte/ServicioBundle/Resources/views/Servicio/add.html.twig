@@ -1,0 +1,12 @@
+{% form_theme form '::form_horizontal.html.twig' %}
+
+{% extends '::main_layout.html.twig' %}
+
+{% block body %}
+    {{ form(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+{% endblock %}

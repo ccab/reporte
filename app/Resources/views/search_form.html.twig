@@ -1,0 +1,27 @@
+{# Block for each form row #}
+{% block form_row %}
+    {% spaceless %}
+        <div class="form-group">
+            {{ form_label(form, null ,{'label_attr': {'class': 'sr-only'}}) }}
+            {{ form_errors(form) }}
+            {{ form_widget(form,  {'attr': {'class': 'form-control'}})}}
+        </div>
+    {% endspaceless %}
+{% endblock form_row %}
+
+{# Block for the submit button, hardcoded version for the glyphicon inclusion #}
+{% block submit_row %}
+{% spaceless %}
+    <button type="submit" id="{{form.vars.id}}" name="{{form.vars.name}}" class="btn btn-primary">
+        <span class="glyphicon glyphicon-search"></span> Buscar
+    </button>
+{% endspaceless %}
+{% endblock submit_row %}
+
+{% block reset_row %}
+{% spaceless %}
+    <button type="submit" id="{{form.vars.id}}" name="{{form.vars.name}}" class="btn btn-primary">
+        <span class="glyphicon glyphicon-refresh"></span> Reiniciar
+    </button>
+{% endspaceless %}
+{% endblock reset_row %}

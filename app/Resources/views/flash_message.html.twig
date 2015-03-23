@@ -1,0 +1,21 @@
+{% for type, flashMessages in messages %}
+    {% for flashMessage in flashMessages %}
+        {% if type == "info" %}
+            <div class="alert alert-info">
+                <span class="glyphicon glyphicon-info-sign"></span> {{ flashMessage }}
+            </div>
+        {% elseif type == "warning" %}
+            <div class="alert alert-warning">
+                <span class="glyphicon glyphicon-warning-sign"></span> {{ flashMessage }}
+            </div>
+        {% elseif type == "success" %}
+            <div class="alert alert-success">
+                <span class="glyphicon glyphicon-ok-sign"></span> {{ flashMessage }}
+            </div>
+        {% elseif type == "alert" %}
+            <div class="alert alert-danger">
+                <span class="glyphicon glyphicon-exclamation-sign"></span> {{ flashMessage }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endfor %}

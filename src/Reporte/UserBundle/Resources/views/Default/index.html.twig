@@ -1,0 +1,84 @@
+{% form_theme form '::search_form.html.twig' %}
+
+{% extends '::main_layout.html.twig' %}
+   
+{% block body %}
+    <a href="{{ path('reporte_user_default_add') }}" class="btn btn-info" role="button">
+        <span class="glyphicon glyphicon-user"></span> Adicionar Usuario</a><br><br>
+        
+    {% if form is defined %}
+        {{form(form)}}
+    {% endif %}
+    
+        <br><br>
+    {% if entities is defined %}
+        <div class="table-responsive">
+  <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Accion</th>
+                    {% elseif is_granted('ROLE_TEC') %}
+                        <th>Accion</th>
+                    {% endif %}
+                    <th>Usuario</th>
+                    <th>Area</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Activo</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for entity in entities %}   
+           <tr class="{{ cycle(['odd', 'even'], loop.index)}}">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td>
+                        <!-- Operation Button -->
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href={{ path('reporte_user_default_update', {id: entity.getId()}) }}>
+                                    <span class="glyphicon glyphicon-pencil"></span> Modificar</a>
+                            </li>
+                            <li>
+                                <a href={{ path('reporte_user_default_passwd', {id: entity.getId()}) }}>
+                                    <span class="glyphicon glyphicon-edit"></span> Cambiar clave</a>
+                            </li>
+                            <li>
+                                <a href={{ path('reporte_user_default_askdelete', {id: entity.getId()}) }}>
+                                    <span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+                            </li>
+                          </ul>
+                        </div>
+                    </td>
+                {% endif %}
+                <td>{{ entity.getUsername() }}</td>
+                <td>{{ entity.getArea().getNombre() }}</td>
+                <td>{{ entity.getEmail() }}</td>
+                <td>
+                 {% for role in entity.getRoles() %} 
+                     {{ role.getName() }}
+                 {% endfor %}
+                 </td>
+                 {% if entity.getIsActive() %}     
+                     <td>SI</td>
+                 {% endif %}
+                 {% if entity.getIsActive()==false %}     
+                     <td>NO</td>
+                 {% endif %}
+           </tr>
+    {% endfor %}
+            </tbody>
+          </table>
+</div>
+    {% endif %}
+{% endblock %}
+        
+{% block paginator %}
+    {% if paginator is defined %}
+        {{ include('ReportePaginatorBundle:Default:paginator.html.twig', {'paginator': paginator}) }}
+    {% endif %}
+{% endblock %}

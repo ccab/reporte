@@ -1,0 +1,11 @@
+{% extends '::main_layout.html.twig' %}
+    
+{% block body %}
+    <h4>Esta seguro que desea eliminar la OT?</h4>
+        <a href="{{ path('reporte_servicio_servicio_delete', {id: id}) }}" class="btn btn-info" role="button">
+        <span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+        <a href="{{ path('reporte_servicio_servicio_index') }}" class="btn btn-info" role="button">
+        <span class="glyphicon glyphicon-circle-arrow-left"></span> Cancelar</a>
+{% endblock %}               
+
+

@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="text-center">
+        <ul class="pagination pagination-sm">
+            {% if paginator.first is not null %}<li><a href={{ path(paginator.url, { 'page': paginator.first}) }}>&laquo;</a></li>{% endif %}
+            {% if paginator.previous is not null %}<li><a href={{ path(paginator.url, { 'page': paginator.previous}) }}>&lsaquo;</a></li>{% endif %}
+            {% for number in paginator.range %}
+                {% if number.current == true %}
+                    <li class="active"><a href="#">{{ number.number }}<span class="sr-only">(current)</span></a></li>
+                {% else %}
+                    <li><a href={{ path(paginator.url, { 'page': number.number}) }}>{{ number.number }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if paginator.next is not null %}<li><a href={{ path(paginator.url, { 'page': paginator.next}) }}>&rsaquo;</a></li>{% endif %}
+            {% if paginator.last is not null %}<li><a href={{ path(paginator.url, { 'page': paginator.last}) }}>&raquo;</a></li>{% endif %}
+            {% if paginator.current is not null %}
+                {% if paginator.last is not null %}
+                    <br>{{ paginator.current }} de {{ paginator.last }}
+                {% else %}
+                    <br>{{ paginator.current }} de {{ paginator.current }}
+                {% endif %}
+            {% endif %}   
+        </ul>
+        </div>          
+    </div>
+</div> 
+                    
+                

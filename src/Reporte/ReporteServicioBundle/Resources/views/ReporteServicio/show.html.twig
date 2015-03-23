@@ -1,0 +1,58 @@
+{% extends '::main_layout.html.twig' %}
+
+{% block body %}
+
+<div class="row">
+  <div class="col-md-2 col-md-offset-10">
+      
+        <!-- Operation Button -->
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+                <a href={{ path('reporte_reporteservicio_reporteservicio_update', { 'id' : entity.id }) }}>
+                    <span class="glyphicon glyphicon-pencil"></span> Modificar</a>
+            </li>
+          </ul>
+        </div>
+        
+    </div>
+</div>
+
+    <dl class="dl-horizontal">
+        <dt>No. Inventario</dt>
+        <dd>{{ entity.getPcInv }}</dd>
+        <dt>Area</dt>
+        <dd>{{ entity.getAutorAreaNombre }}</dd>
+        <dt>Usuario</dt>
+        <dd>{{ entity.usuario }}</dd>
+        <dt>Problema</dt>
+        <dd>{{ entity.problema|raw }}</dd>
+        <dt>Labor Realizada</dt>
+        <dd>{{ entity.laborrealizada|raw }}</dd>
+        {% if entity.piezas %}
+            <dt>Piezas</dt>
+            <dd>{{ entity.piezas|raw }}</dd>
+        {% endif %}
+        {% if entity.piezasrecuperadas is null %} 
+        {% elseif entity.piezasrecuperadas == false %}
+            <dt>Piezas Recuperadas</dt>
+            <dd>NO</dd>
+        {% elseif entity.piezasrecuperadas == true %}
+            <dt>Piezas Recuperadas</dt>
+            <dd>SI</dd>
+        {% endif %}
+        <dt>Fecha</dt>
+        <dd>{{ entity.fechareporte|date('d/m/Y') }}</dd>
+        <dt>Fecha de Solucion</dt>
+        <dd>{{ entity.fechasolucion|date('d/m/Y') }}</dd>
+        <dt>Autor</dt>
+        <dd>{{ entity.getAutorUsername }}</dd>
+        {% if entity.observacion %}
+            <dt>Observacion</dt>
+            <dd>{{ entity.observacion|raw }}</dd>
+        {% endif %}
+    </dl>
+{% endblock %}

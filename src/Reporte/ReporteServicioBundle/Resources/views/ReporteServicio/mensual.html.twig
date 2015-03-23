@@ -1,0 +1,151 @@
+<link href="{{ asset('css/print.css') }}" rel="stylesheet" type="text/css" />   
+
+<body>    
+    <div id="muestra">
+        <div id="header">
+            <a href="{{ path('reporte_custom_default_index') }}" class="logo"><img src="{{ asset('images/logo.gif') }}" alt="Symfony!" class="png_fix"/></a>
+        </div>
+
+        <table width="auto" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td colspan="7" align="center"><h1>Tabla de Reportes</h1>
+                    <br /></td>
+            </tr>
+            <tr>
+                {#Para el trabajo con la localizacion es necesario habilitar la extension
+                 Intl(ver config.yml), dado un objeto DateTime es capaz de localizar y formatear.
+                Basado en la clase IntlDateFormatter de PHP. Formatos para fecha http://userguide.icu-project.org/formatparse/datetime#}
+                <td height="22" colspan="3"><p>&nbsp;Mes: <b>{{ date|localizeddate('none', 'none', 'es_ES','America/Havana','LLLL')|title }}</b> / A&nacute;o: <b>{{ date|date('Y') }}</b></p></td>
+                <td colspan="2">&nbsp;</td>
+                <td width="213" align="right"><p>&nbsp;</p></td>
+                <td colspan="5"><p>&nbsp;Fecha de Creado:&nbsp;{{ date()|date('d/m/Y') }}</p></td>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+                <td height="23"><p>&nbsp;</p></td>
+                <td height="23" colspan="2">&nbsp;</td>
+                <td height="23" colspan="2">&nbsp;</td>
+                <td>&nbsp;</td>
+                <td width="183">&nbsp;</td>
+            </tr>
+
+            <tr class="cel" align="center">
+                <td rowspan="2" bgcolor="#CCCCCC" class="cel"><p>&Aacute;rea</p></td>
+                <td height="22" colspan="2" bgcolor="#CCCCCC" class="cel"><p>Fecha</p></td>
+                <td width="72" rowspan="2" bgcolor="#CCCCCC" class="cel"><p>No.</p><p>Inventario</p></td>
+                <td width="213" rowspan="2" align="center" bgcolor="#CCCCCC" class="cel"><p align="center">Problema</p></td>
+                <td width="213" rowspan="2" align="center" bgcolor="#CCCCCC" class="cel"><p align="center">Trabajo Realizado</p></td>
+                <td rowspan="2" bgcolor="#CCCCCC" class="cel"><p>Piezas y</p><p>Agregados</p></td>
+                <td colspan="2" bgcolor="#CCCCCC" class="cel"><p>Recuperadas</p></td>
+                <td width="74" rowspan="2" bgcolor="#CCCCCC" class="cel"><p>Usuario</p></td>
+                <td width="75" rowspan="2" bgcolor="#CCCCCC" class="cel"><p>Técnico</p></td>
+                <td width="244" colspan="2" rowspan="2" bgcolor="#CCCCCC" class="cel"><p>Observaciones</p></td>
+            </tr>
+            <tr class="cel" align="center">
+                <td width="80" height="22" bgcolor="#CCCCCC" class="cel"><p>Inicio</p></td>
+                <td width="78" bgcolor="#CCCCCC" class="cel"><p>Fin</p></td>
+                <td width="44" bgcolor="#CCCCCC" class="cel"><p>Si</p></td>
+                <td width="44" bgcolor="#CCCCCC" class="cel"><p>No</p></td>
+            </tr>
+
+            {% if entities is not empty %}
+                {% for entity in entities %}
+                    <tr>
+                        <td class="cel"><p>{{ entity.getAutorAreaNombre }}</p></td>
+                        <td class="cel"><p>&nbsp;{{ entity.fechareporte|date('d/m/Y') }}</p></td>
+                        <td class="cel"><p>&nbsp;{{ entity.fechasolucion|date('d/m/Y') }}</p></td>
+                        <td class="cel"><p>&nbsp;{{ entity.getPcInv }}</p></td>
+                        <td class="cel"><p>&nbsp;{{ entity.problema|raw }}</p></td>
+                        <td class="cel"><p>&nbsp;{{ entity.laborrealizada|raw }}</p></td>
+                        <td class="cel"><p>&nbsp;{{ entity.piezas|raw }}</p></td>
+                        {% if entity.piezasrecuperadas is null %}
+                            <td class="cel"><p>&nbsp;</td>
+                            <td class="cel"><p>&nbsp;</td>   
+                        {% elseif entity.piezasrecuperadas == false %}
+                            <td class="cel"><p>&nbsp;</td>
+                            <td class="cel"><p>&nbsp;x</td>
+                        {% elseif entity.piezasrecuperadas == true %}
+                            <td class="cel"><p>&nbsp;x</td>
+                            <td class="cel"><p>&nbsp;</td>
+                        {% endif %}
+                        <td class="cel"><p>&nbsp;{{ entity.usuario }}</td>
+                        <td class="cel"><p>&nbsp;{{ entity.getTecnicoUsername }}</td>
+                        <td class="cel"><p>&nbsp;{{ entity.observacion|raw }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td class="cel" colspan="12"><h4>No existen reportes</h4></td>
+                </tr>
+            {% endif %}
+
+
+
+
+            <tr>
+                <td width="92"></td>
+                <td colspan="2"></td>
+                <td colspan="2"></td>
+                <td>&nbsp;</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <!--
+    <table cellpadding="2" cellspacing="2">
+        <tr>
+            <td><p><a href={{ path('reporte_reporteservicio_reporteservicio_mensual', { 'month' : 1}) }}>Ene</a></td>
+            <td><p><a href={{ path('reporte_reporteservicio_reporteservicio_mensual', { 'month' : 2}) }}>Feb</a></p></td>
+            <td><p><a href={{ path('reporte_reporteservicio_reporteservicio_mensual', { 'month' : 3}) }}>Mar</a></p></td>
+            <td><p><a href={{ path('reporte_reporteservicio_reporteservicio_mensual', { 'month' : 4}) }}>Abr</a></p></td>
+            <td><p><a href={{ path('reporte_reporteservicio_reporteservicio_mensual', { 'month' : 5}) }}>May</a></p></td>
+            <td><p><a href={{ path('reporte_reporteservicio_reporteservicio_mensual', { 'month' : 6}) }}>Jun</a></p></td>
+            <td><p><a href={{ path('reporte_reporteservicio_reporteservicio_mensual', { 'month' : 7}) }}>Jul</a></p></td>
+            <td><p><a href={{ path('reporte_reporteservicio_reporteservicio_mensual', { 'month' : 8}) }}>Ago</a></p></td>
+            <td><p><a href={{ path('reporte_reporteservicio_reporteservicio_mensual', { 'month' : 9}) }}>Sep</a></p></td>
+            <td><p><a href={{ path('reporte_reporteservicio_reporteservicio_mensual', { 'month' : 10}) }}>Oct</a></p></td>
+            <td><p><a href={{ path('reporte_reporteservicio_reporteservicio_mensual', { 'month' : 11}) }}>Nov</a></p></td>
+            <td><p><a href={{ path('reporte_reporteservicio_reporteservicio_mensual', { 'month' : 12}) }}>Dic</a></p></td>
+        </tr>
+    </table>
+    -->
+    <form action="{{ path('reporte_reporteservicio_reporteservicio_mensual') }}" method="post" role="form">
+        <table>
+            <tbody>
+            <thead>
+                <tr>
+                    <th>Mes</th>
+                    <th>A&nacute;o</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tr>        
+                <td>
+                    <select name="month">
+                        {% for month in months %}
+                            {% if month.name == date|localizeddate('none', 'none', 'es_ES','America/Havana','LLLL') %}
+                                <option value="{{ month.number }}" selected="selected">{{ month.name|title }}</option>
+                            {% else %}
+                                <option value="{{ month.number }}">{{ month.name|title }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select name="year">
+                        {% for year in years %}
+                            {% if year == date|localizeddate('none', 'none', 'es_ES','America/Havana','y') %}
+                                <option value="{{ year }}" selected="selected">{{ year }}</option>
+                            {% else %}
+                                <option value="{{ year }}">{{ year }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+                <td><button type="submit" name="aceptar" value="aceptar">Cambiar</button></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </form>
+</body>

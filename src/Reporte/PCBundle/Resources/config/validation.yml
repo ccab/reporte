@@ -1,0 +1,5 @@
+Reporte\PCBundle\Entity\PC:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: inv
+            message: 'El numero de inventario ya existe'

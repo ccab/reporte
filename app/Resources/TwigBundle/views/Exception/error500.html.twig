@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{# Block for "global" variable configuration #}
+    <html>
+        <head>
+            <meta charset="UTF-8" />
+            <title>
+                Error Interno
+            </title>
+            <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
+            {% block stylesheets %}
+                <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+                <link href="{{ asset('css/bootstrap-theme.min.css') }}" rel="stylesheet" type="text/css" />
+            {% endblock %}
+        </head>
+        <body>
+            
+            <div class="container-fluid">
+
+                <!-- Banner -->
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <a href="{{ path('reporte_custom_default_index') }}"><img src="{{ asset('images/logo.gif') }}" alt="Sistema de Reporte"/></a>
+                    </div>
+                </div>
+
+                <!-- Breadcrumbs  -->
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <ol class="breadcrumb">
+                            <li><a href="{{ path('reporte_custom_default_index') }}">Inicio</a></li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Main container  -->
+                <div class="row">
+                    
+                    <!-- Left column -->
+                    <div class="col-sm-12 col-md-3 col-lg-2">
+
+                        <!-- Navigation menu -->
+                        <div class="row">
+                            <div class="col-md-12">
+
+                            </div>
+                        </div>      
+                         
+                        
+                    </div>
+
+                    <!-- Right-Center column -->  
+                    <div class="col-sm-12 col-md-9 col-lg-10">
+  
+
+                        <!-- Page title -->
+                        {% block page_title %}
+                            <div class="page-header">
+                                <h3>Error Interno</h3>
+                            </div>
+                        {% endblock %}
+                        
+                        <!-- Main content -->
+                        {% block body %}
+
+                            <div class="alert alert-danger" role="alert">
+                                <p class="lead"><span class="glyphicon glyphicon-warning-sign"></span> Ha ocurrido un error. 
+                                    Comun&iacute;quese con el administrador del Sistema lo antes posible.
+                                </p>
+                            </div>
+
+                            <a href="{{ path('reporte_custom_default_index') }}" class="btn btn-primary" role="button">
+                                <span class="glyphicon glyphicon-home"></span> Inicio
+                            </a>
+
+                        {% endblock %}
+
+                      </div>
+                </div>
+    
+       
+        </body>
+    </html>

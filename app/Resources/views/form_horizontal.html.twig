@@ -1,0 +1,87 @@
+{# Block for each form row #}
+{% block form_row %}
+    {% spaceless %}
+        {# If the field is required show a '*' next to the label based on the 'required' css class #}
+        {% if form.vars.required %}
+                <div class="form-group required {% if form.vars.errors is not empty %} {{ "has-error" }} {% endif %}">
+                {{ form_errors(form) }}
+                {{ form_label(form, null ,{'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                <div class="col-sm-10">
+                    {% if form.vars.attr.class is defined %} 
+                        {{ form_widget(form, {'attr': {'class': 'form-control ' ~ form.vars.attr.class }} )}} 
+                    {% else %}
+                        {{ form_widget(form, {'attr': {'class': 'form-control' }}  )}} 
+                    {% endif %}
+                    {% if form.vars.attr.help is defined %}
+                        <span class="help-block">{{ form.vars.attr.help }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <div class="form-group">
+                {{ form_label(form, null ,{'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {{ form_errors(form) }}
+                <div class="col-sm-10">
+                    {% if form.vars.attr.class is defined %} 
+                        {{ form_widget(form, {'attr': {'class': 'form-control ' ~ form.vars.attr.class }}  )}} 
+                    {% else %}
+                        {{ form_widget(form, {'attr': {'class': 'form-control' }}  )}} 
+                    {% endif %}
+                    {% if form.vars.attr.help is defined %}
+                        <span class="help-block">{{ form.vars.attr.help }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_row %}
+
+{% block form_errors %}
+{% spaceless %}
+    {% for error in errors %}
+        <div class="alert alert-danger">
+            <span class="glyphicon glyphicon-exclamation-sign"></span> {{ error.message }}
+        </div>
+        
+    {% endfor %}
+{% endspaceless %}
+{% endblock form_errors %}
+
+{# Block for checkboxes #}
+{% block checkbox_row %}
+{% spaceless %}
+    <div class="form-group">
+         {{ form_errors(form) }}
+        <div class="col-sm-offset-2 col-sm-10">
+          <div class="checkbox">
+                {% if label is not sameas(false) %}
+                    {% if not compound %}
+                        {% set label_attr = label_attr|merge({'for': id}) %}
+                    {% endif %}
+                    {% if required %}
+                        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+                    {% endif %}
+                    {% if label is empty %}
+                        {% set label = name|humanize %}
+                    {% endif %}
+                    <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+                        <input type="checkbox" {% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+                        {{ label|trans({}, translation_domain) }}
+                    </label>
+                {% endif %}
+          </div>
+        </div>
+      </div>
+{% endspaceless %}
+{% endblock checkbox_row %}
+
+{# Block for the submit button #}
+{% block button_row %}
+{% spaceless %}
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        {{ form_widget(form,  {'attr': {'class': 'btn btn-primary'}})}}
+      </div>
+    </div>
+{% endspaceless %}
+{% endblock button_row %}

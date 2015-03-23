@@ -1,0 +1,49 @@
+{% extends '::main_layout.html.twig' %}
+
+{% block body %}
+
+<div class="row">
+  <div class="col-md-2 col-md-offset-10">
+      
+        <!-- Operation Button -->
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+                <a href={{ path('reporte_servicio_servicio_solve', { 'id': entity.id }) }}>
+                    <span class="glyphicon glyphicon-ok"></span> Solucionar</a>
+            </li>
+            <li>
+                <a href={{ path('reporte_servicio_servicio_update', { 'id': entity.id }) }}>
+                    <span class="glyphicon glyphicon-pencil"></span> Modificar</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href={{ path('reporte_servicio_servicio_print', { 'id' : entity.id}) }} target="_blank">
+                    <span class="glyphicon glyphicon-print"></span> Imprimir</a>
+            </li>
+            <li>
+                <a href={{ path('reporte_servicio_servicio_askdelete', { 'id': entity.id }) }}>
+                    <span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+            </li>
+          </ul>
+        </div>
+        
+    </div>
+</div>
+
+    <dl class="dl-horizontal">
+        <dt>Area</dt>
+        <dd>{{ entity.autor.area.nombre }}</dd>
+        <dt>Usuario</dt>
+        <dd>{{ entity.usuario }}</dd>
+        <dt>Problema</dt>
+        <dd>{{ entity.problema|raw }}</dd>
+        <dt>Autor</dt>
+        <dd>{{ entity.autor.getUsername }}</dd>
+        <dt>Fecha</dt>
+        <dd>{{ entity.fechareporte|date('d/m/Y') }}</dd>
+    </dl>
+{% endblock %}

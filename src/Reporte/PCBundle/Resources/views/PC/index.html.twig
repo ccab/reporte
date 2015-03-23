@@ -1,0 +1,72 @@
+{% if form is defined %}{% form_theme form '::search_form.html.twig' %}{% endif %}
+
+{% extends '::main_layout.html.twig' %}
+   
+{% block body %}
+    <a href="{{ path('reporte_pc_pc_add') }}" class="btn btn-info" role="button">
+        <span class="glyphicon glyphicon-floppy-disk"></span> Adicionar PC</a><br><br>
+    
+    {% if form is defined %}{{form(form)}}{% endif %}
+        
+    <br><br>
+    {% if entities is defined %}
+        <div class="table-responsive">
+  <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Accion</th>
+                    {% elseif is_granted('ROLE_TEC') %}
+                        <th>Accion</th>
+                    {% endif %}
+                    <th>Inv.</th>
+                    <th>Marca</th>
+                    <th>Area</th>
+                    <th>Laptop</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for entity in entities %}   
+           <tr class="{{ cycle(['odd', 'even'], loop.index)}}">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td>
+                        <!-- Operation Button -->
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href={{ path('reporte_pc_pc_update', {id: entity.getId()}) }}>
+                                    <span class="glyphicon glyphicon-pencil"></span> Modificar</a>
+                            </li>
+                            <li>
+                                <a href={{ path('reporte_pc_pc_askdelete', {id: entity.getId()}) }}>
+                                    <span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+                            </li>
+                          </ul>
+                        </div>
+                        
+                    </td>
+                {% endif %}
+            <td>{{ entity.getInv() }}</td>
+            <td>{{ entity.getMarca().getNombre() }}</td>
+            <td>{{ entity.getArea().getNombre() }}</td>
+            {% if entity.esLaptop == true %}
+                <td>SI</td>
+            {% elseif entity.esLaptop == false %}
+                <td>NO</td>
+            {% endif %}
+           </tr>
+        {% endfor %}
+            </tbody>
+          </table>
+</div>
+    {% endif %}
+{% endblock %}
+        
+{% block paginator %}
+    {% if paginator is defined %}
+        {{ include('ReportePaginatorBundle:Default:paginator.html.twig', {'paginator': paginator}) }}
+    {% endif %}
+{% endblock %}

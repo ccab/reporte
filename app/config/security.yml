@@ -1,0 +1,59 @@
+security:
+  
+    encoders:
+        Reporte\UsersBundle\Security\LDAPUser: plaintext
+        FOS\UserBundle\Model\UserInterface: sha512
+        Reporte\UserBundle\Entity\User: 
+          algorithm:        sha1
+          encode_as_base64: false
+          iterations:       1
+        
+    providers:
+        chain_provider:
+            chain:
+                providers: [ldap,fos_userbundle]
+        fos_userbundle:
+            id: fos_user.user_provider.username
+        ldap:
+            id: ldap_user_provider
+        main:
+            entity: { class: ReporteUserBundle:User, property: username }
+  
+    role_hierarchy:
+        ROLE_ADMIN:  [ROLE_LIMITED, ROLE_TEC]
+        
+    firewalls:
+      main_firewall:
+        pattern: ^/
+        anonymous: ~
+        #http_basic: ~
+        simple_form: 
+            authenticator: ldap_authenticator
+            provider: chain_provider
+            login_path: login
+            check_path: login_check
+            failure_path: reporte_custom_default_index
+            #csrf_provider: form.csrf_provider
+        logout: 
+            path: /logout
+            target: /
+            invalidate_session: false
+            
+    access_control:
+         #Paginas que pueden ver los usuarios limitados
+         - { path: ^/mostrar/ot, roles: [ROLE_LIMITED, ROLE_TEC, ROLE_USER] }
+         - { path: ^/admin/ot/adicionar$, roles: ROLE_LIMITED }
+         - { path: ^/usuario/modificar/clave$, roles: [ROLE_LIMITED, ROLE_TEC] }
+         - { path: ^/mostrar/tecnico$, roles: [ROLE_LIMITED, ROLE_TEC] }
+         - { path: ^/mostrar/reporte/mensual, roles: [ROLE_LIMITED, ROLE_TEC] }
+         - { path: ^/admin/ot/imprimir, roles: ROLE_TEC }
+         #Paginas de administracion
+         - { path: ^/show, roles: ROLE_ADMIN }
+         - { path: ^/imprimir, roles: ROLE_ADMIN }
+         - { path: ^/mostrar, roles: ROLE_ADMIN }
+         - { path: ^/admin, roles: ROLE_ADMIN }
+         #Paginas para anon
+         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+

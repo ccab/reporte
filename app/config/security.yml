@@ -42,6 +42,7 @@ security:
     access_control:
          #Paginas que pueden ver los usuarios limitados
          - { path: ^/mostrar/ot, roles: [ROLE_LIMITED, ROLE_TEC, ROLE_USER] }
+         - { path: ^/mostrar/rs, roles: ROLE_LIMITED }
          - { path: ^/admin/ot/adicionar$, roles: ROLE_LIMITED }
          - { path: ^/usuario/modificar/clave$, roles: [ROLE_LIMITED, ROLE_TEC] }
          - { path: ^/mostrar/tecnico$, roles: [ROLE_LIMITED, ROLE_TEC] }

@@ -40,14 +40,15 @@ class MenuBuilder extends ContainerAware
         $menu['home']->addChild('passwd2', array('route' => 'reporte_users_default_passwd', 'label' => 'Cambiar Clave'));
         $menu['home']['passwd2']->setDisplay(false);
         
+        //Reporte
+        $menu['home']->addChild('Reporte', array('route' => 'reporte_reporteservicio_reporteservicio_index'));
+        $menu['home']['Reporte']->addChild('sh', array('route' => 'reporte_reporteservicio_reporteservicio_show','label'=>'Ver Reporte'));
+        $menu['home']['Reporte']->addChild('upd', array('route' => 'reporte_reporteservicio_reporteservicio_update','label'=>'Modificar Reporte'));
+        $menu['home']['Reporte']->setDisplayChildren(false);
+        
         if($this->container->get('security.context')->isGranted('ROLE_ADMIN'))
         {
-            //Reporte
-            $menu['home']->addChild('Reporte', array('route' => 'reporte_reporteservicio_reporteservicio_index'));
-            $menu['home']['Reporte']->addChild('sh', array('route' => 'reporte_reporteservicio_reporteservicio_show','label'=>'Ver Reporte'));
-            $menu['home']['Reporte']->addChild('upd', array('route' => 'reporte_reporteservicio_reporteservicio_update','label'=>'Modificar Reporte'));
-            $menu['home']['Reporte']->setDisplayChildren(false);
-            
+                       
             //Computadora
             $menu['home']->addChild('pc', array('route' => 'reporte_pc_pc_index','label' => 'Computadora'));
             $menu['home']['pc']->addChild('add', array('route' => 'reporte_pc_pc_add', 'label' => "Adicionar PC"));

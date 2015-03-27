@@ -13,12 +13,17 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface
         $admin = new Role();
         $admin->setName('Administrador')
                ->setRole('ROLE_ADMIN')
-               ->setNombreGrupoDC('ADMIN_COSTO');
+               ->setNombreGrupoDC('REPORTE_ADMIN');
         
-        $comercial = new Role();
-        $comercial->setName('Comercial')
-                  ->setRole('ROLE_COMERCIAL')
-                  ->setNombreGrupoDC('COMERCIAL_COSTO');
+        $tecnico= new Role();
+        $tecnico->setName('Tecnico')
+               ->setRole('ROLE_TEC')
+               ->setNombreGrupoDC('REPORTE_TEC');
+        
+        $limitado = new Role();
+        $limitado->setName('Limitado')
+               ->setRole('ROLE_LIMITED')
+               ->setNombreGrupoDC('REPORTE_LIMITADO');
         
         $user = new Role();
         $user->setName('Usuario')
@@ -26,7 +31,8 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface
              ->setNombreGrupoDC("DOMAIN_USERS");
         
         $manager->persist($admin);
-        $manager->persist($comercial);
+        $manager->persist($tecnico);
+        $manager->persist($limitado);
         $manager->persist($user);
         $manager->flush();
         

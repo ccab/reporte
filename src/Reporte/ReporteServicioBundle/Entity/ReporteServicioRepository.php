@@ -40,6 +40,21 @@ class ReporteServicioRepository extends EntityRepository
     }
     
     
+    /**
+     * Counts all records in the Reportes table 
+     */
+    public function getCounterPorArea($criteria)
+    {
+        
+        $qb = $this->createQueryBuilder('s')
+                ->select('count(s.id)')
+                ->where('s.autor_area_nombre = :area')
+                ->setParameter('area', $criteria["area"]);
+        
+        return $qb->getEntities()->getSingleScalarResult();                
+    }
+    
+    
     /*
      * Search all users by username, user area or user role, it excludes root user
      */
@@ -51,7 +66,7 @@ class ReporteServicioRepository extends EntityRepository
         
         if(isset($fields["area"]))
         {
-            $q->andWhere('rs.pc_area_nombre = :area');
+            $q->andWhere('rs.autor_area_nombre = :area');
             $q->setParameter(':area', $fields["area"]->getNombre());
         }
 
